@@ -1,0 +1,56 @@
+language: node_js
+node_js:
+    - '13'
+
+stages:
+    - setup
+    - test
+    - lint
+
+backend-setup:
+    stage: setup
+    cache: npm
+    script:
+        - cd backend
+        - npm install
+        - npm start
+
+backend-test:
+    stage: test
+    cache: npm
+    script:
+        - cd backend
+        - npm install
+        - npm run test
+
+backend-lint:
+    stage: lint
+    cache: npm
+    script:
+        - cd backend
+        - npm install
+        - npm run lint
+
+frontend-setup:
+    stage: setup
+    cache: npm
+    script:
+        - cd frontend
+        - npm install
+        - npm run build
+
+frontend-test:
+    stage: test
+    cache: npm
+    script:
+        - cd frontend
+        - npm install
+        - npm run test
+        
+frontend-lint:
+    stage: lint
+    cache: npm
+    script:
+        - cd frontend
+        - npm install
+        - npm run lint

@@ -7,7 +7,8 @@
     "test": "jest",
     "start": "node src/index.js",
     "dev": "nodemon src/index.js",
-    "pretest": "eslint --ignore-path .gitignore ."
+    "pretest": "eslint --ignore-path .gitignore .",
+    "lint": "./node_modules/.bin/eslint src/"
   },
   "author": "Wiktoria Salamon",
   "license": "ISC",
