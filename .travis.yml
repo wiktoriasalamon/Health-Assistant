@@ -13,7 +13,6 @@ jobs:
           script:
             - cd backend
             - npm install
-            - npm start
         - stage: build
           script:
             - cd frontend
@@ -34,7 +33,7 @@ jobs:
             - cd backend
             - npm install
             - npm run lint
-        - stage: build
+        - stage: lint
           script:
             - cd frontend
             - npm install
