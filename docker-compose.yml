@@ -1,0 +1,48 @@
+version: '3'
+services: 
+    frontend:
+        build: 
+            context: './frontend/'
+            dockerfile: Dockerfile
+        ports: 
+        - '${APP_PORT}:4001'
+        volumes: 
+        - './frontend/src:/frontend/src'
+        depends_on: 
+        - backend
+        links: 
+        - backend
+
+    backend:
+        build: 
+            context: './backend/'
+            dockerfile: Dockerfile
+        ports: 
+            - '${SERVER_PORT}:4000'
+        volumes: 
+            - './backend/src:/backend/src'
+        depends_on: 
+            - mongo
+        links: 
+            - mongo
+        environment:
+            - DB_PASS=${DB_PASSWORD}
+
+    mongo:
+        hostname: ${DB_HOST}
+        container_name: health_mongo
+        image: mongo
+        restart: always
+        volumes:
+            - ./mongo/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+            - mongo-data:/data/db
+        ports:
+            - '${DB_PORT}:27017'
+        environment:
+            - MONGO_INITDB_ROOT_USERNAME=${DB_USER}
+            - MONGO_INITDB_DATABASE=${DB_DATABASE}
+            - MONGO_INITDB_ROOT_PASSWORD=${DB_PASSWORD}
+
+    
+volumes:
+    mongo-data:
