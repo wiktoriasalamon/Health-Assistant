@@ -1,0 +1,11 @@
+{
+  "name": "health-assistant",
+  "version": "1.0.0",
+  "description": "The Health Assistant server.",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "Wiktoria Salamon",
+  "license": "ISC"
+}
