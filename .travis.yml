@@ -3,54 +3,39 @@ node_js:
     - '13'
 
 stages:
-    - setup
+    - build
     - test
     - lint
 
-backend-setup:
-    stage: setup
-    cache: npm
-    script:
-        - cd backend
-        - npm install
-        - npm start
-
-backend-test:
-    stage: test
-    cache: npm
-    script:
-        - cd backend
-        - npm install
-        - npm run test
-
-backend-lint:
-    stage: lint
-    cache: npm
-    script:
-        - cd backend
-        - npm install
-        - npm run lint
-
-frontend-setup:
-    stage: setup
-    cache: npm
-    script:
-        - cd frontend
-        - npm install
-        - npm run build
-
-frontend-test:
-    stage: test
-    cache: npm
-    script:
-        - cd frontend
-        - npm install
-        - npm run test
-        
-frontend-lint:
-    stage: lint
-    cache: npm
-    script:
-        - cd frontend
-        - npm install
-        - npm run lint
+jobs:
+    include:
+        - stage: build
+          script:
+            - cd backend
+            - npm install
+            - npm start
+        - stage: build
+          script:
+            - cd frontend
+            - npm install
+            - npm run build
+        - stage: test
+          script:
+            - cd backend
+            - npm install
+            - npm run test
+        - stage: test
+          script:
+            - cd frontend
+            - npm install
+            - npm run test
+        - stage: lint
+          script:
+            - cd backend
+            - npm install
+            - npm run lint
+        - stage: build
+          script:
+            - cd frontend
+            - npm install
+            - npm run lint
