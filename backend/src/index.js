@@ -1,11 +1,18 @@
 const app = require('./app');
 const logger = require('./config/logger');
+const dbConnect = require('./config/database');
 require('dotenv').config();
 
 let server;
-server = app.listen(process.env.APP_PORT, () => {
+
+dbConnect().then(() => {
+	logger.info('Conntected to MongoDB');
+	server = app.listen(process.env.APP_PORT, () => {
 	logger.info(`Listening to port ${process.env.APP_PORT}`);
 });
+})
+
+
 
 const exitHandler = () => {
 	if (server) {
