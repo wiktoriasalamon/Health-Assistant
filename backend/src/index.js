@@ -8,9 +8,9 @@ let server;
 dbConnect().then(() => {
 	logger.info('Conntected to MongoDB');
 	server = app.listen(process.env.APP_PORT, () => {
-	logger.info(`Listening to port ${process.env.APP_PORT}`);
+		logger.info(`Listening to port ${process.env.APP_PORT}`);
+	});
 });
-})
 
 
 
