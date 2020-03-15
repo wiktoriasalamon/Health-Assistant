@@ -4,10 +4,11 @@
   "description": "The Health Assistant server.",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest --passWithNoTests",
     "start": "node src/index.js",
     "dev": "nodemon src/index.js",
-    "pretest": "eslint --ignore-path .gitignore ."
+    "pretest": "eslint --ignore-path .gitignore .",
+    "lint": "./node_modules/.bin/eslint src/"
   },
   "author": "Wiktoria Salamon",
   "license": "ISC",
@@ -19,6 +20,14 @@
     "winston": "^3.2.1"
   },
   "devDependencies": {
-    "eslint": "^6.8.0"
+    "eslint": "^6.8.0",
+    "jest": "^25.1.0",
+    "supertest": "^4.0.2"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ]
   }
 }
