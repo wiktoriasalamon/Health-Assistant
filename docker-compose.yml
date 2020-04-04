@@ -1,0 +1,43 @@
+version: '3'
+services: 
+    backend:
+        build: 
+            context: './backend/'
+            dockerfile: Dockerfile
+        ports: 
+            - '${SERVER_PORT}:4000'
+        volumes: 
+            - './backend/src:/backend/src'
+        depends_on: 
+            - mongo
+        links: 
+            - mongo
+        environment:
+            - SERVER_PORT=${SERVER_PORT}
+            - SERVER_HOST=${SERVER_HOST}
+            - DB_USER=${DB_USER}
+            - DB_PASSWORD=${DB_ROOT_PASSWORD}
+            - DB_DATABASE=${DB_DATABASE}
+            - DB_PORT=${DB_PORT}
+            - DB_HOST=${DB_HOST}
+    mongo:
+        hostname: ${DB_HOST}
+        container_name: health_mongo
+        image: mongo
+        restart: always
+        volumes:
+            - ./mongo/mongo-init.sh:/docker-entrypoint-initdb.d/mongo-init.sh:ro
+            - mongo-data:/data/db
+        ports:
+            - '${DB_PORT}:27017'
+        environment:
+            - MONGO_INITDB_ROOT_USERNAME=${DB_ROOT}
+            - MONGO_INITDB_DATABASE=${DB_DATABASE}
+            - MONGO_INITDB_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
+            - MONGO_USER_USERNAME=${DB_USER}
+            - MONGO_USER_PASSWORD=${DB_PASSWORD}
+   
+
+    
+volumes:
+    mongo-data:
